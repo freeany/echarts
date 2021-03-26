@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.7.0/dist/echarts.js"></script>
+    <style>
+      html,
+      body,
+      #chart {
+        height: 100%;
+      }
+      /* #chart {} */
+    </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script>
+      const chartDom = document.getElementById('chart')
+      const chart = echarts.init(chartDom, 'light', { renderer: 'svg' })
+      chart.setOption({
+        title: {
+          text: 'echarts入门案例'
+        },
+        xAxis: {
+          data: ['一季度', '二季度', '三季度', '四季度']
+        },
+        yAxis: {}, // y轴的数据是根据series中的data来的。
+        series: [
+          {
+            type: 'pie',
+            center: ['50%', 60], // 饼图圆心的坐标， 第一项是横坐标，第二项是纵坐标
+            radius: 35, // 百分比(相对于容器)或具体数值, 圆的半径
+            data: [
+              { value: 48, name: '分类一' },
+              { value: 35, name: '分类二' },
+              { value: 80, name: '分类三' },
+              { value: 84, name: '分类四' },
+              { value: 90, name: '分类五' }
+            ]
+          },
+          {
+            type: 'line',
+            data: [100, 90, 110, 80]
+          },
+          {
+            type: 'bar',
+            data: [100, 200, 80, 160]
+          }
+        ]
+      })
+    </script>
+  </body>
+</html>
+
+<!-- 
+
+    当使用一个echarts渲染图标时， 最少传入三个属性：
+        1. xAxis:{}   // x轴的数据
+        2. yAxis:{}     // y轴的数据
+        3. series:{}    // 数据和图标类型
+    
+    echarts只给我们提供了light和dark的主题模式， 但是我们可以自定义主题
+    https://echarts.apache.org/zh/theme-builder.html
+    可以让ue/ui同学去做主题配色，我们只要导出js引入， 在init方法的第二个参数引入即可。
+
+    echarts的图标使用svg渲染，默认使用canvas
+    const chart = echarts.init(chartDom, 'westeros', { renderer: 'svg' })
+        如果要频繁的更改动画，那么推荐使用canvas
+        如果要在大屏上进行显示，那么可以选择svg。矢量图还可以减少我们的内存消耗。
+    
+    
+    series: 系列
+        是指一组数值映射成对应的图。
+        配置项中的series属性，其值为一个数组，数组中的每一项对应一张图。系列是与图形进行映射的。
+        如果只绘制一张图则可以将series设置为对象。如果要在一个echarts对象中绘制多张图(折线图、饼图等), 则需要设置为数组
+    多系列： 一个坐标轴中有多个图表
+ -->

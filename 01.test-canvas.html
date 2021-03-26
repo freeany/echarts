@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="800" height="800"></canvas>
+    <script>
+      const canvas = document.getElementById('canvas') // 获取dom对象
+      const ctx = canvas.getContext('2d') // 获取到canvas对象， 开启2d绘图
+      ctx.fillStyle = 'red' // 填充为红色
+      // x轴与y轴是 基于该canvas的
+      ctx.fillRect(0, 0, 50, 150) // 绘制矩形，(x轴位置，y轴位置，宽度，高度)
+
+      // 开始绘制线 - 路径
+      ctx.beginPath()
+      ctx.lineWidth = 1 // 线条宽度
+      ctx.strokeStyle = 'blue' // 线条填充色
+      ctx.moveTo(100, 100) // 起点坐标
+      ctx.lineTo(250, 75) // 中间点坐标
+      ctx.stroke() // 绘制线段
+      ctx.lineWidth = 2 // 会生效，如果没有前面的ctx.stroke() 则不生效   1-2有效  2-1无效
+      ctx.lineTo(150, 25) // 终点坐标
+      ctx.stroke() // 绘制线段
+
+      ctx.beginPath() // 结束上一段的绘制
+      ctx.lineWidth = 10 // 圆形的边框的宽度(厚度)
+      ctx.strokeStyle = 'green' // 圆形边框的颜色
+      ctx.fillStyle = 'red' // 圆形内部的颜色
+      ctx.arc(200, 200, 50, 0, 2 * Math.PI) // 绘制圆。 x,y(圆心的坐标), 半径，开始的角度，结束的角度
+      ctx.stroke() // 绘制圆形的边框
+      ctx.fill() // 绘制圆形的填充色
+
+      ctx.beginPath() // 绘制点
+      ctx.lineWidth = 1
+      ctx.strokeStyle = 'red'
+      ctx.moveTo(300, 300)
+      ctx.lineTo(301, 301) // 绘制一个点
+      ctx.stroke()
+    </script>
+  </body>
+</html>
+<!-- 
+    canvas 不是dom元素，我们无法像dom元素那样选中他们。
+ -->

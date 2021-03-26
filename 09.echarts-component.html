@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.7.0/dist/echarts.js"></script>
+    <style>
+      html,
+      body,
+      #chart {
+        height: 100%;
+      }
+      /* #chart {} */
+    </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script>
+      const chartDom = document.getElementById('chart')
+      const chart = echarts.init(chartDom, 'light', { renderer: 'svg' })
+      chart.setOption({
+        title: {
+          text: 'echarts入门案例',
+          subtext: '数据可视化'
+        },
+        xAxis: {
+          data: ['一季度', '二季度', '三季度', '四季度']
+        },
+        // 图例， 图例需要与系列进行绑定， 绑定的方法也非常简单，在series中的每一项写上对应的name与对应的legend进行绑定
+        // legend: {
+        //   data: ['柱状图', '折线图', '饼图']
+        // }, // 朴素的legend
+        // 如果要给legend设置样式的话，需要将data设置为对象数组的形式
+        legend: {
+          // 全局的， 局部的可以覆盖。 局部样式设置 === 全局样式设置
+          textStyle: {
+            color: 'blue'
+          },
+          // 默认居中，可以设置位置
+          left: 100,
+          // icon有很多还可以设置图片和svg， 详情见官网
+          data: [
+            {
+              name: '柱状图',
+              icon: 'circle',
+              // 设置样式
+              textStyle: {
+                color: 'red'
+              }
+            },
+            {
+              name: '折线图',
+              icon: 'rect'
+            },
+            {
+              name: '饼图'
+            }
+          ]
+        },
+        // 页面显示的顺序取决于toolbox中对象的属性
+        toolbox: {
+          // 设置dataZoom(区域缩放)的指定y轴，否则选中的时候会有问题
+          dataZoom: {
+            yAxisIndex: false // 指定一个不存在的y轴，设置false代表不存在
+          },
+          restore: {},
+          saveAsImage: {}
+        },
+        dataZoom: [
+          {
+            show: true,
+            start: 30, // 初次显示开始位置的百分比
+            end: 70 // 初次显示结束位置的百分比
+          }
+        ],
+        // legend
+        // dataset 可以对数据源进行集中管理， 方便封装echarts业务组件，方便复用
+        dataset: {
+          source: [
+            ['一季度', 100, 100, '分类一', 48],
+            ['二季度', 200, 90, '分类二', 35],
+            ['三季度', 80, 110, '分类三', 80],
+            ['四季度', 160, 80, '分类四', 84],
+            ['', '', '', '分类五', 90]
+          ]
+        },
+        yAxis: {}, // y轴的数据是根据series中的data来的。
+        series: [
+          {
+            name: '饼图',
+            type: 'pie',
+            center: ['80%', 60], // 饼图圆心的坐标， 第一项是横坐标，第二项是纵坐标
+            radius: 35, // 百分比(相对于容器)或具体数值, 圆的半径
+            encode: {
+              itemName: 3,
+              value: 4
+            }
+          },
+          {
+            name: '折线图',
+            type: 'line',
+            encode: { x: 0, y: 2 }
+          },
+          {
+            name: '柱状图',
+            type: 'bar',
+            encode: { x: 0, y: 1 }
+          }
+        ]
+      })
+    </script>
+  </body>
+</html>
+
+<!-- 
+
+    当使用一个echarts渲染图标时， 最少传入三个属性：
+        1. xAxis:{}   // x轴的数据
+        2. yAxis:{}     // y轴的数据
+        3. series:{}    // 数据和图标类型
+    
+    echarts只给我们提供了light和dark的主题模式， 但是我们可以自定义主题
+    https://echarts.apache.org/zh/theme-builder.html
+    可以让ue/ui同学去做主题配色，我们只要导出js引入， 在init方法的第二个参数引入即可。
+
+    echarts的图标使用svg渲染，默认使用canvas
+    const chart = echarts.init(chartDom, 'westeros', { renderer: 'svg' })
+        如果要频繁的更改动画，那么推荐使用canvas
+        如果要在大屏上进行显示，那么可以选择svg。矢量图还可以减少我们的内存消耗。
+    
+    
+    series: 系列
+        是指一组数值映射成对应的图。
+        配置项中的series属性，其值为一个数组，数组中的每一项对应一张图。系列是与图形进行映射的。
+        如果只绘制一张图则可以将series设置为对象。如果要在一个echarts对象中绘制多张图(折线图、饼图等), 则需要设置为数组
+    多系列： 一个坐标轴中有多个图表
+            这些图标的类型可以相同也可以不同
+
+    echarts中的组件
+        tooltip     legend      yAxis   xAxis   VisualMap   toolbox     dataZoom
+ -->

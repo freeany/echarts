@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.7.0/dist/echarts.min.js"></script>
+    <style>
+      #chart {
+        width: 800px;
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script>
+      const chartDom = document.getElementById('chart')
+      const chart = echarts.init(chartDom)
+      const option = {
+        legend: {},
+        tooltip: {},
+        xAxis: {
+          type: 'category' // 多坐标系需要指定type
+        },
+        yAxis: [
+          {
+            min: 0,
+            max: 100
+          },
+          {
+            min: 0,
+            max: 90,
+            // 隐藏右侧x轴的线条
+            splitLine: {
+              show: false
+            }
+          }
+        ],
+        dataset: {
+          source: [
+            // row --> x轴 --> 2012....
+            ['product', '2012', '2013', '2014', '2015'],
+            ['Matcha Latte', 41.1, 30.4, 65.1, 53.3],
+            ['Milk Tea', 86.5, 88.1, 85.7, 83.1]
+          ]
+        },
+        series: [
+          { type: 'bar', seriesLayoutBy: 'row', yAxisIndex: 0 },
+          { type: 'line', seriesLayoutBy: 'row', yAxisIndex: 1 }
+        ]
+      }
+      chart.setOption(option)
+    </script>
+  </body>
+</html>
+
+<!-- 
+
+    双y坐标系
+        两个yAxis，共享了一个xAxis， 两个series也共享了这一个xAxis， 分别使用不同的yAxis。在series中的需要指定使用的是哪个series
+ 
+ -->

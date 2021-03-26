@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.7.0/dist/echarts.js"></script>
+    <style>
+      html,
+      body,
+      #chart {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script>
+      const chartDom = document.getElementById('chart')
+      const chart = echarts.init(chartDom, 'light', { renderer: 'svg' })
+      chart.setOption({
+        xAxis: {},
+        yAxis: {},
+        dataset: {
+          source: [
+            [12, 45],
+            [33, 22],
+            [43, 14],
+            [66, 32],
+            [23, 34]
+          ]
+        },
+        series: [
+          {
+            type: 'scatter'
+          }
+        ]
+      })
+    </script>
+  </body>
+</html>
+
+<!-- 
+    坐标系
+        折线图、柱状图、散点图、热力图等需要运行在坐标系(直角坐标系，极坐标系，地理坐标系)上，而饼图、数图等就不需要坐标系。能独立存在
+        如关系图等，可以依赖坐标系也可以不依赖。可以根据用户需求进行设定。
+
+-->
