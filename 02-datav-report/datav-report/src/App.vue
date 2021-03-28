@@ -5,6 +5,7 @@
 </template>
 
 <style lang="scss">
+// 初始化样式
 html,
 body,
 #app {
