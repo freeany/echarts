@@ -167,6 +167,7 @@ export default {
           right: 60,
           bottom: 50,
         },
+        // 如果修改背景颜色用backgroundColor
       },
       orderRank: [
         {
