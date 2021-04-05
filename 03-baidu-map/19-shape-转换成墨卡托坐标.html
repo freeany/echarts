@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript"
+        src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=G1LFyjrNGIkns5OfpZnrCGAKxpycPLwb"></script>
+    <script src="https://mapv.baidu.com/gl/examples/static/common.js"></script>
+    <script type="text/javascript" src="https://mapv.baidu.com/build/mapv.js"></script>
+    <script src="https://code.bdstatic.com/npm/mapvgl@1.0.0-beta.54/dist/mapvgl.min.js"></script>
+    <script src="https://code.bdstatic.com/npm/mapvgl@1.0.0-beta.53/dist/mapvgl.threelayers.min.js"></script>
+    <style type="text/css">
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #map_container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        http://lbsyun.baidu.com/solutions/mapvdata
+
+        http://lbsyun.baidu.com/index.php?title=webapi/guide/changeposition
+        // to 6 是墨卡托坐标
+        http://api.map.baidu.com/geoconv/v1/?coords=114.21892734521,29.575429778924&from=1&to=6&ak=你的密钥 //GET请求
+     -->
+    <div id="map_container"></div>
+    <script type="text/javascript">
+        var map = initBMap()
+        var data = initData()
+        setData(data)
+
+        // 初始化百度地图
+        function initBMap() {
+            var startPoint = mapv.utilCityCenter.getCenterByCityName('北京')
+            var map = initMap({
+                tilt: 80,
+                heading: -45.3,
+                center: [116.392394, 39.910683],
+                zoom: 17,
+                style: darkStyle
+            })
+            return map
+        }
+        function initData() {
+            var data = [{
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: [
+                        [
+                            [12958287.560934239, 4826420.121990554],
+                            [12959801.63393129, 4828874.558443741],
+                            [12961481.9187227, 4826328.322460731]
+                        ]
+                    ]
+                },
+                properties: {
+                    height: 100, // 多边形高度
+                }
+            }]
+            return data
+        }
+        function setData(data) {
+            var view = new mapvgl.View({
+                map: map
+            });
+
+            var shaperLayer = new mapvgl.ShapeLayer({
+                color: 'rgb(0, 255, 255)',
+                style: 'normal',
+                // opacity: 1.0, // 透明度
+                riseTime: 2000, // 楼房升起动画
+                enablePicked: true,
+                // riseTime: 1000,
+                opacity: 0.3, // 透明度
+                enablePicked: true, // 是否可以拾取
+                selectedIndex: -1, // 选中项
+                selectedColor: '#ee1111', // 选中项颜色
+                autoSelect: true, // 根据鼠标位置来自动设置选中项
+                onClick: (e) => { // 点击事件
+                    console.log(e);
+                }
+            });
+
+            view.addLayer(shaperLayer);
+            shaperLayer.setData(data);
+        }
+    </script>
+
+</body>
+
+</html>
