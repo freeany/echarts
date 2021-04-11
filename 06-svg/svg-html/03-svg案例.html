@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* svg的样式取决与外面的样式 */
+      .test {
+        color: green;
+
+        width: 20px;
+        height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test">
+      <!-- 
+            stroke-width:1  默认为1
+      -->
+      <svg width="500" height="200" viewBox="0 0 50 20" style="border: 10px solid #000000">
+        <rect x="20" y="10" width="10" height="5" style="stroke-width: 3; stroke: #000000; fill: none" />
+      </svg>
+    </div>
+  </body>
+</html>

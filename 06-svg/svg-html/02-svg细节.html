@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* svg的样式取决与外面的样式 */
+      .test {
+        color: green;
+
+        width: 20px;
+        height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test">
+      <!-- <svg width="100px" height="100px"> 
+        如果把svg的宽高小于100的话 ，那么会svg会被切割不会进行缩放。 例如设置为30*30则不会显示任何数据
+        如何让svg自适应呢  答：使用viewBox 
+            viewBox 是用于在画布上绘制 svg 图形的坐标系统 
+        如何使用？ 
+            svg标签上添加viewBox属性，指定该svg的本来宽高， 然后width和height可以使用100% 100%,这样svg就能根据viewBox中的数据与外面盒子的宽高自动缩放了
+            解释：width or height  /  viewBox中的宽高得到比例， 下面的坐标、宽度等所有的数据会自动根据这个比例进行缩放。
+      -->
+      <svg width="100%" height="100%" viewBox="0 0 100 100">
+        <line x1="0" y1="50" x2="100" y2="50" stroke-width="8" stroke="currentColor" />
+        <line x1="50" y1="0" x2="50" y2="100" stroke-width="8" stroke="currentColor" />
+      </svg>
+    </div>
+  </body>
+</html>

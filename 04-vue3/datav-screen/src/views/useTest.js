@@ -18,10 +18,21 @@ export default function useTest() {
   //   document.body.innerHTML = `hello ${state.count}`
   // })
   const doubleCount = computed(() => state.count * 2)
+
+  const a = computed(() => ctx.$store.state.test.a)
+  const updateVuex = () => {
+    ctx.$store.commit('setTestA', ctx.$store.state.test.a + 1)
+  }
+  const asyncActionVuex = () => {
+    ctx.$store.dispatch('asyncActionVuex', doubleCount.value * 100)
+  }
   return {
     state,
     increment,
     doubleCount,
-    routerAbout
+    routerAbout,
+    a,
+    updateVuex,
+    asyncActionVuex
   }
 }
